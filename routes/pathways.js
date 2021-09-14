@@ -20,7 +20,7 @@ router.get('/:code/id', function(req, res) {
   Pathway.findOne({ code: req.params.code})
   .then(function(pathway){
     if(pathway != null){
-    res.send(pathway._id)
+    res.send({"_id": pathway._id})
     }else{
       res.status(400).send('Pathway code not found.')
     }
@@ -33,7 +33,7 @@ router.get('/:code/clustercode', function(req, res) {
   Pathway.findOne({ code: req.params.code})
   .then(function(pathway){
     if(pathway != null){
-      res.send(pathway.clusterCode)
+      res.send({"clusterCode": pathway.clusterCode})
     }else{
       res.status(400).send('Pathway code not found.')
     }
@@ -57,7 +57,7 @@ router.get('/:code/title', function(req, res) {
   Pathway.findOne({ code: req.params.code})
   .then(function(pathway){
     if(pathway != null){
-    res.send(pathway.title)
+    res.send({"title": pathway.title})
     }else{
       res.status(400).send('Pathway code not found.')
     }
@@ -69,7 +69,7 @@ router.get('/:code/occupations', function(req, res) {
   Pathway.findOne({ code: req.params.code})
   .then(function(pathway){
     if(pathway != null){
-    res.send(pathway.occupations)
+    res.send({"occupations": pathway.occupations})
     }else{
       res.status(400).send('Pathway code not found.')
     }

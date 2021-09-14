@@ -1,13 +1,16 @@
 const { ApolloServer } = require ('apollo-server-express');
-const { ApolloServerPluginInlineTrace } = require('apollo-server-core');
+const { 
+  ApolloServerPluginInlineTrace,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageLocalDefault } = require('apollo-server-core');
 const express = require('express');
 
 const typeDefs  = require('./schema/typeDefs');
 const resolvers  = require('./schema/resolvers');
 const mongoose = require('mongoose');
 
-const port = process.env.port || 1012;
 require('dotenv').config();
+const PORT = process.env.PORT || 1012;
 const { db } = process.env;
 
  // Setting up and Connecting MongoDB using Mongoose
@@ -41,9 +44,9 @@ async function startServer() {
   app.use('/api', apiRouter);
   app.use('/stream', streamRouter);
 
-  // error handling
-  // (...in process)
-
+ // TODO:
+  // - error handling
+  // - Auth
   
   app.use(function(err, req, res, next){
     res.status(422).send({error: err.message});
@@ -53,9 +56,13 @@ async function startServer() {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    // plugins: [
-    //   ApolloServerPluginInlineTrace(),
-    // ],
+    introspection: true,
+    plugins: [
+      process.env.NODE_ENV === 'production'
+      ? ApolloServerPluginLandingPageGraphQLPlayground()
+      : ApolloServerPluginLandingPageLocalDefault({footer: false }),
+      ApolloServerPluginInlineTrace(),
+    ],
   });
 
   //Starting GraphQL Server
@@ -64,17 +71,8 @@ async function startServer() {
  // Including GraphQL Server into Express Server
   apolloServer.applyMiddleware({ app });
 
-  await new Promise(resolve => app.listen(port, resolve));
+  await new Promise(resolve => app.listen(PORT, resolve));
 
-  console.log(
-    `Server ready at http://localhost:${port}`,
-    `GraphQL available at http://localhost:${port}${apolloServer.graphqlPath}`
-    );
-
-  app.use((req, res) => {
-   res.send('Hello from express server.');
-  });
-  
 };
 startServer();
 

@@ -31,7 +31,7 @@ router.get('/:code/id', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation._id)
+      res.send({"_id":occupation._id})
     }else{
       res.status(400).send('Occupation code not found.')
     }
@@ -43,7 +43,7 @@ router.get('/:code/title', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation.title)
+      res.send({'title': occupation.title})
     }else{
       res.status(400).send('Occupation code not found.')
     }
@@ -55,7 +55,7 @@ router.get('/:code/description', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation.description)
+      res.send({"description": occupation.description})
     }else{
       res.status(400).send('Occupation code not found.')
     }
@@ -67,7 +67,7 @@ router.get('/:code/videocode', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation.videocode)
+      res.send({"videocode": occupation.videocode})
     }else{
       res.status(400).send('Occupation code not found.')
     }
@@ -79,7 +79,7 @@ router.get('/:code/clusters', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation.clusters)
+      res.send({"clusters": occupation.clusters})
     }else{
       res.status(400).send('Occupation code not found.')
     }
@@ -91,7 +91,7 @@ router.get('/:code/pathways', function(req, res){
   Occupation.findOne({code: req.params.code})
   .then(function(occupation){
     if(occupation != null){
-      res.send(occupation.pathways)
+      res.send({"pathways": occupation.pathways})
     }else{
       res.status(400).send('Occupation code not found.')
     }

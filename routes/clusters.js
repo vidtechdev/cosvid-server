@@ -31,7 +31,7 @@ router.get('/:clusterCode/id', function(req, res){
   Cluster.findOne({clusterCode: req.params.clusterCode})
   .then(function(cluster){
     if(cluster != null){
-      res.send(cluster._id)
+      res.send({"_id": cluster._id})
     }else{
       res.status(400).send('Error: Cluster _id not found.')
     }
@@ -44,7 +44,7 @@ router.get('/:clusterCode/title', function(req, res){
   Cluster.findOne({clusterCode: req.params.clusterCode})
   .then(function(cluster){
     if(cluster != null){
-      res.send(cluster.title)
+      res.send({"title": cluster.title})
     }else{
       res.status(400).send('Error: Cluster title not found.')
     }
@@ -56,7 +56,7 @@ router.get('/:clusterCode/description', function(req, res){
   Cluster.findOne({clusterCode: req.params.clusterCode})
   .then(function(cluster){
     if(cluster != null){
-      res.send(cluster.description)
+      res.send({"description": cluster.description})
     }else{
       res.status(400).send('Error: Cluster description not found.')
     }
@@ -70,7 +70,7 @@ router.get('/:clusterCode/occupations', function(req, res){
   
   .then(function(cluster){
     if(cluster != null){
-      res.send(cluster.occupations)
+      res.send({"occupations": cluster.occupations})
     }else{
       res.status(400).send('Error: Cluster occupations not found.')
     }

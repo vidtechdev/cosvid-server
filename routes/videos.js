@@ -31,7 +31,7 @@ router.get('/:videocode/id', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video._id)
+    res.send({"_id": video._id})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -43,7 +43,7 @@ router.get('/:videocode/videotype', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.videotype)
+    res.send({"videotype": video.videotype})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -55,7 +55,7 @@ router.get('/:videocode/title', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.title)
+    res.send({"title": video.title})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -67,7 +67,7 @@ router.get('/:videocode/taxonomy', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.taxonomy)
+    res.send({"taxonomy": video.taxonomy})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -79,7 +79,7 @@ router.get('/:videocode/transcript', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.transcript)
+    res.send({"transcript": video.transcript})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -91,7 +91,7 @@ router.get('/:videocode/captions_en', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.captions_en)
+    res.send({"captions_en": video.captions_en})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -103,7 +103,7 @@ router.get('/:videocode/captions_es', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.captions_es)
+    res.send({"captions_es": video.captions_es})
     }else{
       res.status(404).send('Videocode not found.');
     }
@@ -115,7 +115,7 @@ router.get('/:videocode/occupations', function(req, res){
   Video.findOne({videocode: req.params.videocode})
   .then(function(video){
     if(video != null){
-    res.send(video.occupations)
+    res.send({"occupations": video.occupations})
     }else{
       res.status(404).send('Videocode not found.');
     }
