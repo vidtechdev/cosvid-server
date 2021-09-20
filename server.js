@@ -4,6 +4,7 @@ const {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginLandingPageLocalDefault } = require('apollo-server-core');
 const express = require('express');
+const helmet = require('helmet');
 
 const typeDefs  = require('./schema/typeDefs');
 const resolvers  = require('./schema/resolvers');
@@ -26,14 +27,17 @@ async function startServer() {
   const app = express();
   const apiRouter = require('./routes/api');
   const streamRouter = require('./routes/stream');
+
   // serve static files
   app.use(express.static('public'));
   // parse data
   app.use(express.json());
 
+  app.use(helmet());
+
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Origin",["https://frontend-cleaning.vercel.app", "http://localhost:1111", "https://cosvid-frontend.vercel.app"]);
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
