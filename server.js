@@ -37,7 +37,7 @@ async function startServer() {
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin", [FRONTEND_URL, LOCAL_URL]);
+    res.setHeader("Access-Control-Allow-Origin", FRONTEND_URL || LOCAL_URL);
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
