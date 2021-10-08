@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 1012;
-const { db } = process.env;
+const { db, FRONTEND_URL, LOCAL_URL } = process.env;
 
  // Setting up and Connecting MongoDB using Mongoose
  mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
@@ -37,7 +37,7 @@ async function startServer() {
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","https://cosvid.vercel.app");
+    res.setHeader("Access-Control-Allow-Origin", [FRONTEND_URL, LOCAL_URL]);
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
