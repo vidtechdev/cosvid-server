@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 1012;
-const { db, FRONTEND_URL, LOCAL_URL } = process.env;
+const { db } = process.env;
 
  // Setting up and Connecting MongoDB using Mongoose
  mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
@@ -33,11 +33,11 @@ async function startServer() {
   // parse data
   app.use(express.json());
 
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin", FRONTEND_URL);
+    res.setHeader("Access-Control-Allow-Origin", "https://cosvid.herokuapp.com");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
