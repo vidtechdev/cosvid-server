@@ -1,8 +1,8 @@
 const { ApolloServer } = require ('apollo-server-express');
 const { 
   ApolloServerPluginInlineTrace,
-  ApolloServerPluginLandingPageGraphQLPlayground,
-  ApolloServerPluginLandingPageLocalDefault } = require('apollo-server-core');
+  ApolloServerPluginLandingPageDisabled,
+  ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 const express = require('express');
 const helmet = require('helmet');
 
@@ -33,7 +33,7 @@ async function startServer() {
   // parse data
   app.use(express.json());
 
-  app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
+  app.use(helmet());
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
@@ -63,8 +63,8 @@ async function startServer() {
     introspection: true,
     plugins: [
       process.env.NODE_ENV === 'production'
-      ? ApolloServerPluginLandingPageGraphQLPlayground()
-      : ApolloServerPluginLandingPageLocalDefault({footer: false }),
+      ? ApolloServerPluginLandingPageDisabled()
+      : ApolloServerPluginLandingPageGraphQLPlayground(),
       ApolloServerPluginInlineTrace(),
     ],
   });
