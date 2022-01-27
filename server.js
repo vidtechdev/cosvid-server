@@ -37,11 +37,17 @@ async function startServer() {
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://cosvid.herokuapp.com");
+    const corsWhitelist = [
+      'https://cosvid.vercel.app',
+      'https://cosvid.herokuapp.com'
+    ];
+    if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);  //"https://cosvid.herokuapp.com"
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
     );
+    }
     next();
   }); 
   // initialize main routes
@@ -62,16 +68,17 @@ async function startServer() {
     resolvers,
     introspection: true,
     plugins: [
-      process.env.NODE_ENV === 'production'
-      ? ApolloServerPluginLandingPageDisabled()
-      : ApolloServerPluginLandingPageGraphQLPlayground(),
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+      // process.env.NODE_ENV === 'production'
+      // ? ApolloServerPluginLandingPageDisabled()
+      // :ApolloServerPluginLandingPageGraphQLPlayground(),
       ApolloServerPluginInlineTrace(),
     ],
   });
 
   //Starting GraphQL Server
   await apolloServer.start();
-
+ 
  // Including GraphQL Server into Express Server
   apolloServer.applyMiddleware({ app });
 
@@ -79,5 +86,6 @@ async function startServer() {
 
 };
 startServer();
+
 
 
