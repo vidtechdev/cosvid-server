@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 require('dotenv').config();
-const { CDN, VIDROOT, THUMBROOT, VTTROOT, CLUSTERROOT, TUTORIALROOT, MP4, JPG, ENVTT, ESVTT, } = process.env;
+const { CDN, VIDROOT, THUMBROOT, VTTROOT, CLUSTERROOT, TUTORIALROOT, SKILLANDABILITYROOT, MP4, JPG, ENVTT, ESVTT, } = process.env;
 const request = require('request');
 
 // Video Asset Endpoints
@@ -25,6 +25,12 @@ router.get('/video/tutorial/:fileName', (req, res) => {
   request(url).pipe(res);
 });
 
+router.get('/video/skill-and-ability/:fileName', (req, res) => {
+  const fileName = req.params.fileName;
+  const url = CDN+SKILLANDABILITYROOT+fileName+MP4;
+  request(url).pipe(res);
+});
+
 router.get('/poster/:onet', (req, res) => {
   const onet = req.params.onet;
   const poster = CDN+VIDROOT+onet+JPG;
@@ -39,6 +45,12 @@ router.get('/poster/cluster/:fileName', (req, res) => {
 router.get('/poster/tutorial/:fileName', (req, res) => {
   const fileName = req.params.fileName;
   const url = CDN+TUTORIALROOT+fileName+JPG;
+  request(url).pipe(res);
+});
+
+router.get('/poster/skill-and-ability/:fileName', (req, res) => {
+  const fileName = req.params.fileName;
+  const url = CDN+SKILLANDABILITYROOT+fileName+JPG;
   request(url).pipe(res);
 });
 

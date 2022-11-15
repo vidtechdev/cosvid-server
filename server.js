@@ -33,7 +33,9 @@ async function startServer() {
   // parse data
   app.use(express.json());
 
-  app.use(helmet());
+  app.use(helmet({
+    contentSecurityPolicy: false,
+  }));
 
   // Add Access-Control-Allow-Origin Headers
   app.use((req,res,next) => {
@@ -67,11 +69,12 @@ async function startServer() {
     typeDefs,
     resolvers,
     introspection: true,
+    // playground: true,
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground(),
       // process.env.NODE_ENV === 'production'
       // ? ApolloServerPluginLandingPageDisabled()
-      // :ApolloServerPluginLandingPageGraphQLPlayground(),
+      // : ApolloServerPluginLandingPageGraphQLPlayground(),
       ApolloServerPluginInlineTrace(),
     ],
   });
